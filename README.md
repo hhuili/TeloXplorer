@@ -1,2 +1,2 @@
-# TelomereScope
-TelomereScope
+# TeloXplorer
+TeloXplorer
