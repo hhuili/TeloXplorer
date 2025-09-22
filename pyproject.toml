@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "teloxplorer"
+version = "1.0.0"
+description = "A pipeline for telomere analysis from long-read sequencing data."
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    {name = "Huihui Li", email = "hhui.li@outlook.com"}
+]
+dependencies = [
+    "numpy",
+    "pysam",
+    "regex"
+]
+
+[project.scripts]
+teloxplorer = "teloxplorer.main:main_cli"
+telox-align = "teloxplorer.telox_align:align_cli"
+telox-length = "teloxplorer.telox_length:length_cli"
+telox-variants = "teloxplorer.telox_variants:variants_cli"
+telox-asm = "teloxplorer.telox_asm:asm_cli"
+
+[tool.setuptools]
+packages = {find = {}}
+
