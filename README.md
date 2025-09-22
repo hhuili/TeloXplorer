@@ -11,8 +11,8 @@ conda install -c bioconda teloxplorer
 ```
 
 # Quick Start
+- For human telomere, use `--preset Human`
 ```
-# for human telomere
 teloxplorer \
     --preset Human \
     --long-read-fastq human_ont_test.fastq.gz \
@@ -22,8 +22,10 @@ teloxplorer \
     --out-prefix ONT_demo \
     --outdir Human_telo \
     --threads 4
+```
 
-# for mouse telomere
+- For mouse telomere, use `--preset Mouse`
+```
 teloxplorer \
     --preset Mouse \
     --long-read-fastq mouse_ont_test.fastq.gz \
@@ -33,8 +35,10 @@ teloxplorer \
     --out-prefix mouse_ont_test \
     --outdir Mouse_telo \
     --threads 4
+```
 
-# for yeast telomere
+- For yeast telomere, use `--preset Yeast`
+```
 teloxplorer \
     --preset Yeast \
     --long-read-fastq yeast_ont_test.fastq.gz \
@@ -57,4 +61,5 @@ teloxplorer \
 # Citation
 
 # Acknowledgments
+
 
