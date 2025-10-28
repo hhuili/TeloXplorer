@@ -18,8 +18,9 @@ Teloxplorer is a tool for chromosome-specific telomere analysis from long-read s
 
 ## Installation
 
+**Using Conda (Recommended)**
+
 ```
-# install with conda (Recommended)
 conda install -c bioconda::teloxplorer
 ```
 
@@ -142,6 +143,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
