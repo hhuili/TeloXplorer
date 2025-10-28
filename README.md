@@ -10,8 +10,9 @@ Teloxplorer is a pipeline for chromosome-specific telomere analysis from long-re
 
 - [Installation](#installation)
 - [Quick Start](#quick-start)
-  - [Using Presets (`--preset`)](#using-presets---preset)
-  - [Customization and Parameter Overrides](#customization-and-parameter-overrides)
+  - [Using Presets (`--preset`)]
+  - [Customization and Parameter Overrides]
+- [Telomere Methylation](#telomere-methylation)
 - [Parameters](#parameters)
 - [Outputs](#outputs)
 - [License](#license)
@@ -44,20 +45,20 @@ teloxplorer \
 
 To simplify configuration, we provide optimized parameter presets for several common species.
 
-### Recommended Presets:
+**Recommended Presets:**
 
 - `--preset human` (Human)
 - `--preset yeast` (Yeast)
 - `--preset mouse` (Mouse)
 - `--preset arabidopsis` (Arabidopsis)
 
-### For Other Species:
+**For Other Species:**
 
 If your species is not on this list, we recommend comparing its telomere repeat sequence to those of the species above. Choose the preset from the species with the most similar repeat sequence as a starting point.
 
 For example, many mammals (e.g., cow, dog) share the same `TTAGGG` repeat as humans, making `--preset human` a good initial choice.
 
-### Customization and Parameter Overrides
+**Customization and Parameter Overrides**
 
 The `--preset` flag automatically sets default values for many parameters. You can **override** any of these defaults by explicitly specifying the parameter in your command.
 
@@ -67,7 +68,7 @@ This is particularly useful for fine-tuning the analysis for "other species." Th
 - `--min_tel_freq`: Sets the minimum frequency of telomeric repeats required to classify a read as telomeric.
 - `--bloom_options`: Adjusts parameters for the BLOOM merging.
 
-### Override Example:
+**Override Example:**
 
 Imagine you want to use the human preset but require a stricter frequency threshold. You would run:
 
@@ -136,6 +137,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
