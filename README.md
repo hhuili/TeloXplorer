@@ -31,7 +31,7 @@ Below is a standard command for running teloxplorer:
 teloxplorer \
     --preset $species \
     --long-read-fastq $long_read_fastq \
-    --ref-genome $ref_genome_dir/$ref_genome \
+    --ref-genome $ref_genome \
     --tel-repeats $tel_repeats \
     --mm2-preset "$mm2_preset" \
     --out-prefix $sample \
@@ -79,6 +79,21 @@ teloxplorer \
 ```
 In this command, teloxplorer will load all settings from the human preset but will use 0.4 for min_tel_freq instead of the preset's default value.
 
+## Telomere Methylation
+
+```
+telox-methyl \
+    --preset $species \
+    --tel-reads $sample.chromtel_length.tsv \
+    --modBAM $bam \
+    --ref-genome $ref_genome \
+    --tel-repeats $tel_repeats \
+    --out-prefix $sample \
+    --outdir $batch_id \
+    --threads $threads \
+    --plot -W 8 -H 10
+```
+
 ## Parameters
 
 A detailed list of all command-line arguments: 
@@ -121,6 +136,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
