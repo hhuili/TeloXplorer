@@ -98,16 +98,16 @@ telox-methyl \
 
 A detailed list of all command-line arguments: 
 - `--long-read-fastq`: Input long-read FASTQ file (gzipped or plain)
-- `--ref-genome`: Reference genome FASTA file
+- `-r, --ref-genome`: Reference genome FASTA file
 - `--outdir`: Output directory
 - `--out-prefix`: Prefix for all output files
 - `--preset`: Use a built-in parameter preset (human, yeast, etc.)
-- `--tel-repeats`: Telomere repeat definition file (one per line: arm<TAB>repeat, regex supported)
-- `--genome_subtel_range`: Size of the subtelomeric region (bp) from the chromosome ends. Telomeres within this range are classified as `terminal`, while those outside are `internal`. (Varies by preset)
+- `-R, --tel-repeats`: Telomere repeat definition file (one per line: arm<TAB>repeat, regex supported)
+- `-B, --genome_subtel_range`: Size of the subtelomeric region (bp) from the chromosome ends. Telomeres within this range are classified as `terminal`, while those outside are `internal`. (Varies by preset)
 - `--mm2-preset`: minimap2 preset (e.g., map-pb, map-ont)
 - `-q, --min-mapq`: Minimum mapping quality [default: 20]
-- `--min_tel_freq`: Frequency threshold for telomere segment definition (Varies by preset)
-- `--min-read-len`: Minimum read length (bp) [default: 1000]
+- `-f, --min_tel_freq`: Frequency threshold for telomere segment definition (Varies by preset)
+- `-rl, --min-read-len`: Minimum read length (bp) [default: 1000]
 - `--primary-merge`: Merge adjacent telomere segments pre-BLOOM [default: no]
 - `--max-mismatch`: Mismatch tolerance for telomere re-labeling [default: 2]
 - `--max-initial-offset`: Max non-telomere length at read start [default: 200]
@@ -143,6 +143,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
