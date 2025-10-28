@@ -1,7 +1,7 @@
 ![image](https://github.com/hhuili/TeloXplorer/blob/main/logo/logo.svg)
 # TeloXplorer
 
-[![Conda Version](https://img.shields.io/conda/vn/bioconda/teloxplorer.svg?style=flat-square)](https://anaconda.org/bioconda/teloxplorer)
+[![Conda Version](https://img.shields.io/conda/vn/huihui_li/teloxplorer.svg?style=flat-square)](https://anaconda.org/huihui_li/teloxplorer)
 
 Teloxplorer is a tool for chromosome-specific telomere analysis from long-read sequencing data (Nanopore and PacBio).
 
@@ -103,12 +103,20 @@ A detailed list of all command-line arguments:
 - `--preset`: Use a built-in parameter preset (human, yeast, etc.)
 - `--tel-repeats`: Telomere repeat definition file (one per line: arm<TAB>repeat, regex supported)
 - `--genome_subtel_range`: Size of the subtelomeric region (bp) from the chromosome ends. Telomeres within this range are classified as `terminal`, while those outside are `internal`. (Varies by preset)
-- `--min_tel_freq`: Frequency threshold for telomere segment definition (Varies by preset)
-- `--bloom_options`: BLOOM merging parameters (Varies by preset)	
 - `--mm2-preset`: minimap2 preset (e.g., map-pb, map-ont)
-- `--plot`:	Generate summary plots
+- `-q, --min-mapq`: Minimum mapping quality [default: 20]
+- `--min_tel_freq`: Frequency threshold for telomere segment definition (Varies by preset)
+- `--min-read-len`: Minimum read length (bp) [default: 1000]
+- `--primary-merge`: Merge adjacent telomere segments pre-BLOOM [default: no]
+- `--max-mismatch`: Mismatch tolerance for telomere re-labeling [default: 2]
+- `--max-initial-offset`: Max non-telomere length at read start [default: 200]
+- `-tl, --min-tel-len`: Minimum telomere length [default: 100]
+- `-sl, --min-subtel-len`: Minimum sub-telomere length [default: 200]
+- `--bloom_options`: BLOOM merging parameters (Varies by preset)
+- `--plot`: Generate telomere length plot
 - `-H, --height`: Plot height in inches
 - `-W, --width`: Plot width in inches
+- `-k, --kmers`: K-mer sizes for repeat unit identification
 - `--threads`: Number of threads to use
 
 ## Outputs
@@ -134,6 +142,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
