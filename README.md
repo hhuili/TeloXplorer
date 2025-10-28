@@ -10,8 +10,7 @@ Teloxplorer is a pipeline for chromosome-specific telomere analysis from long-re
 
 - [Installation](#installation)
 - [Quick Start](#quick-start)
-  - [Using Presets (`--preset`)]
-  - [Customization and Parameter Overrides]
+  - Using Presets (`--preset`)
 - [Telomere Methylation](#telomere-methylation)
 - [Parameters](#parameters)
 - [Outputs](#outputs)
@@ -41,7 +40,7 @@ teloxplorer \
     --plot -H 3 -W 10
 ```
 
-### Using Presets (`--preset`)
+**Using Presets (`--preset`)**
 
 To simplify configuration, we provide optimized parameter presets for several common species.
 
