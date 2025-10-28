@@ -1,10 +1,9 @@
 ![image](https://github.com/hhuili/TeloXplorer/blob/main/logo/logo.svg)
 # TeloXplorer
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Conda Version](https://img.shields.io/conda/vn/bioconda/teloxplorer.svg?style=flat-square)](https://anaconda.org/bioconda/teloxplorer)
 
-Teloxplorer is a pipeline for chromosome-specific telomere analysis from long-read sequencing data (Nanopore and PacBio).
+Teloxplorer is a tool for chromosome-specific telomere analysis from long-read sequencing data (Nanopore and PacBio).
 
 ## Table of Contents
 
@@ -135,6 +134,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
