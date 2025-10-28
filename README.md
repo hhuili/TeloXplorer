@@ -1,65 +1,126 @@
 ![image](https://github.com/hhuili/TeloXplorer/blob/main/logo/logo.svg)
-# Teloxplorer
-Teloxplorer is a pipeline for chromosome-specific telomere analysis from long-read sequencing data.
+# TeloXplorer
 
-# Installation
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Conda Version](https://img.shields.io/conda/vn/bioconda/teloxplorer.svg?style=flat-square)](https://anaconda.org/bioconda/teloxplorer)
+
+Teloxplorer is a pipeline for chromosome-specific telomere analysis from long-read sequencing data (Nanopore and PacBio).
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+  - [Using Presets (`--preset`)](#using-presets---preset)
+  - [Customization and Parameter Overrides](#customization-and-parameter-overrides)
+- [Parameters](#parameters)
+- [Outputs](#outputs)
+- [License](#license)
+- [Citation](#citation)
+
+## Installation
+
 ```
-# install with conda
-conda install -c bioconda teloxplorer
-
-# 
+# install with conda (Recommended)
+conda install -c bioconda::teloxplorer
 ```
 
-# Quick Start
-- For human telomere, use `--preset Human`
+## Quick Start
+
+Below is a standard command for running teloxplorer:
 ```
 teloxplorer \
-    --preset Human \
-    --long-read-fastq human_ont_test.fastq.gz \
-    --ref-genome ref.fasta \
-    --tel-repeats tel_repeats.Human.txt \
-    --minimap2-preset "-ax map-ont" \
-    --out-prefix ONT_demo \
-    --outdir Human_telo \
-    --threads 4
+    --preset $species \
+    --long-read-fastq $long_read_fastq \
+    --ref-genome $ref_genome_dir/$ref_genome \
+    --tel-repeats $tel_repeats \
+    --mm2-preset "$mm2_preset" \
+    --out-prefix $sample \
+    --outdir $batch_id \
+    --threads $threads \
+    --plot -H 3 -W 10
 ```
 
-- For mouse telomere, use `--preset Mouse`
+### Using Presets (`--preset`)
+
+To simplify configuration, we provide optimized parameter presets for several common species.
+
+### Recommended Presets:
+
+- `--preset human` (Human)
+- `--preset yeast` (Yeast)
+- `--preset mouse` (Mouse)
+- `--preset arabidopsis` (Arabidopsis)
+
+### For Other Species:
+
+If your species is not on this list, we recommend comparing its telomere repeat sequence to those of the species above. Choose the preset from the species with the most similar repeat sequence as a starting point.
+
+For example, many mammals (e.g., cow, dog) share the same `TTAGGG` repeat as humans, making `--preset human` a good initial choice.
+
+### Customization and Parameter Overrides
+
+The `--preset` flag automatically sets default values for many parameters. You can **override** any of these defaults by explicitly specifying the parameter in your command.
+
+This is particularly useful for fine-tuning the analysis for "other species." The most common parameters to adjust are:
+
+- `--genome_subtel_range`: Size of the subtelomeric region (bp) from the chromosome ends. Telomeres within this range are classified as `terminal`, while those outside are `internal`.
+- `--min_tel_freq`: Sets the minimum frequency of telomeric repeats required to classify a read as telomeric.
+- `--bloom_options`: Adjusts parameters for the Bloom filter.
+
+### Override Example:
+
+Imagine you want to use the human preset but require a stricter frequency threshold. You would run:
+
 ```
 teloxplorer \
-    --preset Mouse \
-    --long-read-fastq mouse_ont_test.fastq.gz \
-    --ref-genome ref.fasta \
-    --tel-repeats tel_repeats.Mouse.txt \
-    --minimap2-preset "-ax map-ont" \
-    --out-prefix mouse_ont_test \
-    --outdir Mouse_telo \
-    --threads 4
+    --preset human \
+    --min_tel_freq 0.4 \
+    ... # other arguments
 ```
+In this command, teloxplorer will load all settings from the human preset but will use 0.4 for min_tel_freq instead of the preset's default value.
 
-- For yeast telomere, use `--preset Yeast`
-```
-teloxplorer \
-    --preset Yeast \
-    --long-read-fastq yeast_ont_test.fastq.gz \
-    --ref-genome ref.fasta \
-    --tel-repeats tel_repeats.Yeast.txt \
-    --minimap2-preset "-ax map-ont" \
-    --out-prefix yeast_ont_test \
-    --outdir Yeast_telo \
-    --threads 4
-```
+## Parameters
 
-# Docs
+A detailed list of all command-line arguments: 
+- `--long-read-fastq`: Input long-read FASTQ file (gzipped or plain)
+- `--ref-genome`: Reference genome FASTA file
+- `--outdir`: Output directory
+- `--out-prefix`: Prefix for all output files
+- `--preset`: Use a built-in parameter preset (human, yeast, etc.)
+- `--tel-repeats`: Telomere repeat definition file (one per line: arm<TAB>repeat, regex supported)
+- `--genome_subtel_range`: Size of the subtelomeric region (bp) from the chromosome ends. Telomeres within this range are classified as `terminal`, while those outside are `internal`. (Varies by preset)
+- `--min_tel_freq`: Frequency threshold for telomere segment definition (Varies by preset)
+- `--bloom_options`: BLOOM merging parameters (Varies by preset)	
+- `--mm2-preset`: minimap2 preset (e.g., map-pb, map-ont)
+- `--plot`:	Generate summary plots
+- `-H, --height`: Plot height in inches
+- `-W, --width`: Plot width in inches
+- `--threads`: Number of threads to use
 
-# Dependencies
+## Outputs
+
+teloxplorer will create an output directory specified by --outdir. Key output files include:
+- `$prefix.chromtel_length.tsv`: A tab-separated file containing chomosome-specific telomere length estimates.
+- `$prefix.chromtel_summary.tsv`: A summary file of chomosome-specific telomere length with statistics (mean, median, etc.).
+- `$prefix.chromtel.tel_length.pdf`: (If --plot is used) A boxplot showing the telomere length accross chromosomes.
+- `$prefix.neotel_length.tsv`: A tab-separated file containing neotelomere length estimates.
+- `$prefix.minitel_length.tsv`: A tab-separated file containing minitelomere length estimates.
+
+- `$prefix.chromtel.TVR.tsv`: (If --find-TVR yes)
+- `$prefix.chromtel.TVR_summary.tsv`:
+
+## Dependencies
+
 - Minimap2 (https://github.com/lh3/minimap2)
 - Python 3 (with the following auto-installed packages)
   - numpy
   - pysam
   - regex
-# Citation
 
-# Acknowledgments
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Citation
+
 
 
