@@ -65,7 +65,7 @@ This is particularly useful for fine-tuning the analysis for "other species." Th
 
 - `--genome_subtel_range`: Size of the subtelomeric region (bp) from the chromosome ends. Telomeres within this range are classified as `terminal`, while those outside are `internal`.
 - `--min_tel_freq`: Sets the minimum frequency of telomeric repeats required to classify a read as telomeric.
-- `--bloom_options`: Adjusts parameters for the Bloom filter.
+- `--bloom_options`: Adjusts parameters for the BLOOM merging.
 
 ### Override Example:
 
@@ -121,6 +121,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
