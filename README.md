@@ -117,11 +117,10 @@ A detailed list of all command-line arguments:
 teloxplorer will create an output directory specified by --outdir. Key output files include:
 - `$prefix.chromtel_length.tsv`: A tab-separated file containing chomosome-specific telomere length estimates.
 - `$prefix.chromtel_summary.tsv`: A summary file of chomosome-specific telomere length with statistics (mean, median, etc.).
-- `$prefix.chromtel.tel_length.pdf`: (If --plot is used) A boxplot showing the telomere length accross chromosomes.
+- `$prefix.chromtel.tel_length.pdf`: (--plot) A boxplot showing the telomere length accross chromosomes.
 - `$prefix.neotel_length.tsv`: A tab-separated file containing neotelomere length estimates.
 - `$prefix.minitel_length.tsv`: A tab-separated file containing minitelomere length estimates.
-
-- `$prefix.chromtel.TVR.tsv`: (If --find-TVR yes)
+- `$prefix.chromtel.TVR.tsv`: (--find-TVR "yes")
 - `$prefix.chromtel.TVR_summary.tsv`:
 
 ## Dependencies
@@ -136,6 +135,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
