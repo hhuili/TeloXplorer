@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "teloxplorer"
+version = "0.0.1"
+description = "Teloxplorer is a tool for chromosome-specific telomere analysis from long-read sequencing data (Nanopore and PacBio)."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Huihui Li", email = "hhui.li@outlook.com"}
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "pysam",
+    "regex",
+    "pyfastx",
+    "plotnine",
+    "natsort"
+]
+
+[project.scripts]
+teloxplorer = "teloxplorer.main:telox_main_cli"
+telox-align = "teloxplorer.telox_align:telox_align_cli"
+telox-length = "teloxplorer.telox_length:telox_length_cli"
+telox-variants = "teloxplorer.telox_variants:telox_variants_cli"
+telox-methyl = "teloxplorer.telox_methyl:telox_methyl_cli"
+telox-asm = "teloxplorer.telox_asm:telox_asm_cli"
+telox-bulk = "teloxplorer.telox_bulk:telox_bulk_cli"
+length-plot = "teloxplorer.LengthPlotter:length_plot_cli"
+methyl-plot = "teloxplorer.MethylPlotter:methyl_plot_cli"
+
+[tool.setuptools]
+packages = {find = {}}
+

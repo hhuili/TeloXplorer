@@ -1,0 +1,58 @@
+# teloxplorer/meta.yaml
+
+{% set name = "teloxplorer" %}
+{% set version = "0.0.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  path: .
+  #git_url: https://github.com/hhuili/TeloXplorer.git
+  #git_rev: v{{ version }}
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - make
+  host:
+    - python >=3.10,<3.14
+    - pip
+    - setuptools
+
+  run:
+    - python >=3.10,<3.14
+    - numpy
+    - pandas
+    - pysam
+    - regex
+    - pyfastx >=2.0.0
+    - plotnine >=0.15.0
+    - natsort >=8.0.0
+    - minimap2
+    - samtools
+
+test:
+  imports:
+    - teloxplorer
+  commands:
+    - teloxplorer --help
+    - telox-align --help
+    - telox-length --help
+    - telox-variants --help
+    - telox-methyl --help
+    - telox-asm --help
+    - telox-bulk --help
+    - length-plot --help
+    - methyl-plot --help
+    - command -v BLOOM
+    - command -v minimap2
+
+about:
+  home: "https://github.com/hhuili/TeloXplorer"
+  license: "MIT"
+  summary: "A tool for chromosome-specific telomere analysis from long-read sequencing data (Nanopore and PacBio)."
