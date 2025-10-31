@@ -8,16 +8,11 @@ Teloxplorer is a tool for chromosome-specific telomere analysis from long-read s
 ## Table of Contents
 
 - [Installation](#installation)
-- [Quick Start](#quick-start)
-  - [Using Presets](#using-presets)
-- [Commands](#commands)
-  - [telox-asm](#telox-asm)
-  - [telox-bulk](#telox-bulk)
-  - [telox-length](#telox-length)
-  - [telox-variants](#telox-variants)
-  - [telox-methyl](#telox-methyl)
-- [Parameters](#parameters)
-- [Outputs](#outputs)
+- [Teloxplorer](#teloxplorer)
+  - [Using presets](#using-presets)
+  - [Parameters](#parameters)
+  - [Outputs](#outputs)
+- [Subcommands](#subcommands)
 - [License](#license)
 - [Citation](#citation)
 
@@ -29,7 +24,7 @@ Teloxplorer is a tool for chromosome-specific telomere analysis from long-read s
 conda install -c bioconda::teloxplorer
 ```
 
-## Quick Start
+## Teloxplorer
 
 Below is a standard command for running teloxplorer:
 
@@ -39,17 +34,19 @@ teloxplorer --preset human \
   -r chm13v2.0.fa \
   -R tel_repeats.human.txt \
   --mm2-preset "-ax map-ont" \
-  -o hg001 --outdir hg001 \
-  -t 12 --plot -H 3 -W 10
+  -o hg001
+  --outdir hg001 \
+  -t 12 \
+  --plot -H 3 -W 10
 ```
 
 Parameters
 
-### Using Presets
+### Using presets
 
 To simplify configuration, we provide optimized parameter presets for several common species.
 
-**Recommended Presets:**
+**Recommended presets:**
 
 - `--preset human` (Human)
 - `--preset yeast` (Yeast)
@@ -60,7 +57,7 @@ If your species is not on this list, we recommend comparing its telomere repeat 
 
 For example, many mammals (e.g., cow, dog) share the same `TTAGGG` repeat as humans, making `--preset human` a good initial choice.
 
-**Preset Parameter Overrides:**
+**Preset parameter overrides:**
 
 The `--preset` flag automatically sets default values for many parameters. You can **override** any of these defaults by explicitly specifying the parameter in your command.
 
@@ -71,11 +68,40 @@ This is particularly useful for fine-tuning the analysis for "other species." Th
 - `--bloom_options`: BLOOM merging options, see `BLOOM --help`.
 
 ```
-# Override Example
+# override example
 teloxplorer --preset human --min_tel_freq 0.4 ...
 ```
 
-## Commands
+### Parameters
+
+A detailed list of all command-line arguments: 
+```
+
+```
+
+### Outputs
+
+teloxplorer will create an output directory specified by --outdir. Key output files include:
+
+- `$prefix.chromtel_length.tsv`: A tab-separated file containing chomosome-specific telomere length estimates.
+- `$prefix.chromtel_summary.tsv`: A summary file of chomosome-specific telomere length with statistics (mean, median, etc.).
+- `$prefix.chromtel.tel_length.pdf`: (--plot) A boxplot showing the telomere length accross chromosomes.
+- `$prefix.neotel_length.tsv`: A tab-separated file containing neotelomere length estimates.
+- `$prefix.minitel_length.tsv`: A tab-separated file containing minitelomere length estimates.
+- `$prefix.chromtel.TVR.tsv`: (--find-TVR "yes")
+- `$prefix.chromtel.TVR_summary.tsv`:
+
+## Subcommands
+
+|Command                                                                                |Function                                                                 |Input                 |Output                                 |
+|:--------------------------------------------------------------------------------------|:------------------------------------------------------------------------|:---------------------|:--------------------------------------|
+|[telox-asm](https://github.com/hhuili/TeloXplorer/usage/#telox-asm)                    |Assembly telomere length estimation and boundary detection               |Assembly (fasta)      |Teloemre length/boundary (chromosome)  |
+|[telox-bulk](https://github.com/hhuili/TeloXplorer/usage/#telox-bulk)                  |Bulk telomere length eastimation (alignment free)                        |Long reads (fastq)    |Teloemre length (bulk)                 |
+|[telox-length](https://github.com/hhuili/TeloXplorer/usage/#telox-length)              |Chromosome-specific telomere length estimation                           |Long reads (fastq)    |Teloemre length (chromosome)           |
+|[telox-variants](https://github.com/hhuili/TeloXplorer/usage/#telox-variants)          |Chromosome-specific telomere variant repeat analysis                     |Teloemre seq (fasta)  |Teloemre variants (chromosome)         |
+|[telox-methyl](https://github.com/hhuili/TeloXplorer/usage/#telox-methyl)              |Chromosome-specific telomere methylation analysis                        |modBAM (bam)          |Teloemre bedMethyl (chromosome)        |
+|[length-plot](https://github.com/hhuili/TeloXplorer/usage/#length-plot)                |Telomere length plot across chromosomes                                  |Teloemre length (tsv) |plot (pdf)                             |
+|[methyl-plot](https://github.com/hhuili/TeloXplorer/usage/#methyl-plot)                |Methylation levels plot flanking telomere-subtelomere boundaries         |bedMethyl (bed)       |plot (pdf)                             |
 
 ### telox-asm
 
@@ -120,47 +146,11 @@ telox-methyl \
     --modBAM hg001.5mC_5hmC.pass.bam \
     -r chm13v2.0.fa \
     -R tel_repeats.human.txt \
-    -o hg001 --outdir hg001 \
-    -t 12 --plot -H 8 -W 8
+    -o hg001
+    --outdir hg001 \
+    -t 12
+    --plot -H 8 -W 8
 ```
-
-## Parameters
-
-A detailed list of all command-line arguments: 
-- `--long-read-fastq`: Input long-read FASTQ file (gzipped or plain)
-- `-r, --ref-genome`: Reference genome FASTA file
-- `--outdir`: Output directory
-- `-o, --out-prefix`: Prefix for all output files
-- `--preset`: Use a built-in parameter preset (human, yeast, etc.)
-- `-R, --tel-repeats`: Telomere repeat definition file (one per line: arm<TAB>repeat, regex supported)
-- `-B, --genome_subtel_range`: Size of the subtelomeric region (bp) from the chromosome ends. Telomeres within this range are classified as `terminal`, while those outside are `internal`. (Varies by preset)
-- `--mm2-preset`: minimap2 preset (e.g., map-pb, map-ont)
-- `-q, --min-mapq`: Minimum mapping quality [default: 20]
-- `-f, --min_tel_freq`: Frequency threshold for telomere segment definition (Varies by preset)
-- `-rl, --min-read-len`: Minimum read length (bp) [default: 1000]
-- `--primary-merge`: Merge adjacent telomere segments pre-BLOOM [default: no]
-- `--max-mismatch`: Mismatch tolerance for telomere re-labeling [default: 2]
-- `--max-initial-offset`: Max non-telomere length at read start [default: 200]
-- `-tl, --min-tel-len`: Minimum telomere length [default: 100]
-- `-sl, --min-subtel-len`: Minimum sub-telomere length [default: 200]
-- `--bloom_options`: BLOOM merging parameters (Varies by preset)
-- `--plot`: Generate telomere length plot
-- `-H, --height`: Plot height in inches
-- `-W, --width`: Plot width in inches
-- `-k, --kmers`: K-mer sizes for repeat unit identification
-- `-t, --threads`: Number of threads to use
-
-## Outputs
-
-teloxplorer will create an output directory specified by --outdir. Key output files include:
-
-- `$prefix.chromtel_length.tsv`: A tab-separated file containing chomosome-specific telomere length estimates.
-- `$prefix.chromtel_summary.tsv`: A summary file of chomosome-specific telomere length with statistics (mean, median, etc.).
-- `$prefix.chromtel.tel_length.pdf`: (--plot) A boxplot showing the telomere length accross chromosomes.
-- `$prefix.neotel_length.tsv`: A tab-separated file containing neotelomere length estimates.
-- `$prefix.minitel_length.tsv`: A tab-separated file containing minitelomere length estimates.
-- `$prefix.chromtel.TVR.tsv`: (--find-TVR "yes")
-- `$prefix.chromtel.TVR_summary.tsv`:
 
 ## Dependencies
 
@@ -179,6 +169,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
