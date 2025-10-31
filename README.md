@@ -1,4 +1,4 @@
-![image](https://github.com/hhuili/TeloXplorer/blob/main/logo/logo.svg)
+![image](https://github.com/hhuili/TeloXplorer/docs/logo.svg)
 ## TeloXplorer
 
 [![Conda Version](https://img.shields.io/conda/vn/huihui_li/teloxplorer.svg?style=flat-square)](https://anaconda.org/huihui_li/teloxplorer)
@@ -169,6 +169,7 @@ telox-methyl \
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
