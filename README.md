@@ -34,7 +34,13 @@ conda install -c bioconda::teloxplorer
 Below is a standard command for running teloxplorer:
 
 ```
-teloxplorer --preset human -fq hg001.fq.gz -r chm13v2.0.fa -R tel_repeats.human.txt --mm2-preset "-as map-ont" -o hg001 --outdir hg001 -t 12 --plot
+teloxplorer --preset human \
+  -fq hg001.fq.gz \
+  -r chm13v2.0.fa \
+  -R tel_repeats.human.txt \
+  --mm2-preset "-ax map-ont" \
+  -o hg001 --outdir hg001 \
+  -t 12 --plot -H 3 -W 10
 ```
 
 Parameters
@@ -76,7 +82,7 @@ teloxplorer --preset human --min_tel_freq 0.4 ...
 Assembly telomere length and boundary detection.
 
 ```
-telox-asm --preset $psecies -asm $asm -R $tel_repeats --outdir $outdir --out-prefix $prefix
+telox-asm --preset human -asm chm13v2.0.fa -R tel_repeats.human.txt --outdir chm13 -o chm13
 ```
 
 ### telox-bulk
@@ -84,7 +90,7 @@ telox-asm --preset $psecies -asm $asm -R $tel_repeats --outdir $outdir --out-pre
 Bulk telomere length eastimation (alignment free).
 
 ```
-telox-bulk --preset $psecies -asm $asm -R $tel_repeats --outdir $outdir --out-prefix $prefix
+telox-bulk --preset human -fq hg001.fq.gz -R tel_repeats.human.txt --outdir hg001 -o hg001
 ```
 
 ### telox-length
@@ -92,7 +98,7 @@ telox-bulk --preset $psecies -asm $asm -R $tel_repeats --outdir $outdir --out-pr
 Chromosome-specific telomere length estimation.
 
 ```
-telox-length
+telox-length --preset human --bam hg001.sort.bam -R tel_repeats.human.txt --outdir hg001 -o hg001
 ```
 
 ### telox-variants
@@ -100,7 +106,7 @@ telox-length
 Chromosome-specific telomere variant repeat analysis
 
 ```
-telox-variants
+telox-variants -fa hg001.chromtel_seq.fa -R tel_repeats.human.txt -kmers 5,6,7 --outdir hg001 -o hg001
 ```
 
 ### telox-methyl
@@ -109,15 +115,13 @@ Chromosome-specific telomere methylation analysis
 
 ```
 telox-methyl \
-    --preset $species \
-    --tel-reads $sample.chromtel_length.tsv \
-    --modBAM $bam \
-    -r $ref_genome \
-    -R $tel_repeats \
-    -o $sample \
-    --outdir $batch_id \
-    -t $threads \
-    --plot
+    --preset human \
+    --tel-reads hg001.chromtel_length.tsv \
+    --modBAM hg001.5mC_5hmC.pass.bam \
+    -r chm13v2.0.fa \
+    -R tel_repeats.human.txt \
+    -o hg001 --outdir hg001 \
+    -t 12 --plot -H 8 -W 8
 ```
 
 ## Parameters
@@ -175,6 +179,7 @@ teloxplorer will create an output directory specified by --outdir. Key output fi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Citation
+
 
 
 
