@@ -10,7 +10,7 @@ from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
 from typing import Optional, Union
 from functools import lru_cache
-import telox_pyabpoa as pyabpoa
+import pyabpoa
 from telox import telohmm
 import hdbscan
 

@@ -6,12 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Mapping, Sequence
 
-import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 import numpy as np
 import pandas as pd
-from matplotlib.collections import LineCollection
-from matplotlib.lines import Line2D
 from natsort import natsorted
 
 from . import logger as log_utils
@@ -36,6 +32,10 @@ from .viz_core import (
     split_csv,
     write_motif_color_map,
 )
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+from matplotlib.collections import LineCollection
+from matplotlib.lines import Line2D
 
 
 TVR_REQUIRED = {"read_id", "chrom", "chrom_phase", "arm", "tvr_hap", "tel_length", "tvrs",}
@@ -580,14 +580,9 @@ def _decorate(
 ) -> None:
     ax.set(xlim=xlim, ylim=(max(0.5, total_y - 0.5), -0.5))
     ax.set_yticks([y for _, y in labels], [label for label, _ in labels])
-    # Hidden ticks still contribute their nominal length to the tick-label
-    # transform.  Collapse that unused geometry so labels retain only
-    # Matplotlib's normal typographic padding from the y-axis spine.
     ax.tick_params(axis="y", which="both", left=False, length=0)
     ax.spines[["top", "right"]].set_visible(False)
-    # TVR segments can start exactly at the left boundary, and a thick
-    # consensus can reach the bottom boundary.  Keep the visible frame above
-    # those data artists so neither axis line is hidden.
+
     for name in ("left", "bottom"):
         ax.spines[name].set_zorder(5)
     _xaxis(ax, xlim)
@@ -843,7 +838,6 @@ def _render(
             title_fontsize=STYLE.legend_size,
         )
 
-    # Finalize constrained geometry before converting y-units to physical linewidths.
     fig.canvas.draw()
 
     _draw_reads(ax, prepared.tvr, motifs, colors, xlim, _linewidth(ax, config.read_thickness))

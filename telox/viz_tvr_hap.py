@@ -9,11 +9,6 @@ from pathlib import Path
 from typing import Mapping, Sequence
 import warnings
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-from matplotlib.collections import PolyCollection, QuadMesh
-from matplotlib.lines import Line2D
-from matplotlib.patches import Patch
 import numpy as np
 import pandas as pd
 from natsort import natsort_keygen, natsorted
@@ -52,6 +47,11 @@ from .viz_core import (
     split_csv,
     write_motif_color_map,
 )
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from matplotlib.collections import PolyCollection, QuadMesh
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 
 
 PLOT_REQUIRED_COLUMNS = frozenset({

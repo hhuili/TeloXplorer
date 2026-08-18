@@ -6,8 +6,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from natsort import natsort_keygen, natsorted
@@ -30,6 +28,8 @@ from .viz_core import (
     require_schema,
     save_figure,
 )
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 
 
 @dataclass(frozen=True, slots=True)

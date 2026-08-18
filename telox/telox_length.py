@@ -159,10 +159,6 @@ def anchor_read_to_arm(ref_name, ref_start, ref_end, chrom_sizes, terminal_range
     in_left_window = dist_to_start <= terminal_range
     in_right_window = dist_to_end <= terminal_range
 
-    if preset == "mouse" and ref_name == "chr11":
-        in_left_window = dist_to_start <= 3000000
-        in_right_window = dist_to_end <= terminal_range
-
     if in_left_window and in_right_window:
         if dist_to_start <= dist_to_end:
             return "terminal", "L"
@@ -353,7 +349,6 @@ def write_tel_length(tel_record_data, output, chrom_map=None, use_pq_arms=False)
 
         for rec in tel_record_data.values():
             if rec.tel_arm not in {"L", "R", "p", "q"}:
-                # Ambiguous multi-end records have no defensible single arm.
                 continue
             base_chrom, chrom_phase = chromosome_fields(rec.chrom, chrom_map)
             writer.writerow([
@@ -369,8 +364,7 @@ def write_tel_length(tel_record_data, output, chrom_map=None, use_pq_arms=False)
                 rec.ref_end
             ])
 
-def write_tel_seq(winning_telomeres, bloom_data, qual_data, min_tel_qual, output,
-                  chrom_map=None, use_pq_arms=False):
+def write_tel_seq(winning_telomeres, bloom_data, qual_data, min_tel_qual, output,chrom_map=None, use_pq_arms=False):
 
     filtered_count = 0
 
@@ -629,7 +623,7 @@ def estimate_length(
     chrom_sizes = telox_utils.parse_genome_indx(ref_genome)
 
     aln_data = {}
-    qual_data = {} # Store quality scores here
+    qual_data = {}
     bloom_data = {"L": {}, "R": {}}
 
     executor = ProcessPoolExecutor(max_workers=threads)
@@ -740,7 +734,7 @@ def estimate_length(
             if plot_config is None:
                 plot_config = viz_length.LengthPlotter()
 
-            logger.info(f"Plotting arm-level telomere length distributions ({tel_type})")
+            logger.info(f"Plotting chromosome-end telomere length distributions ({tel_type})")
             viz_length.plot_length(
                 length_input=str(length_file),
                 outdir=outdir,

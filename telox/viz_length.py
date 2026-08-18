@@ -1,16 +1,10 @@
 # Copyright (C) 2025 Huihui Li <hhui.li@outlook.com>. Licensed under GNU GPL v3.0.
-import logging
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Optional, Union
 
 import numpy as np
 import pandas as pd
-import matplotlib
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.patches as patches
-from matplotlib.lines import Line2D
 from natsort import natsorted
 
 from . import telox_utils
@@ -26,8 +20,10 @@ from .viz_core import (
     resolve_requested_values,
     save_figure,
 )
-
-matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import matplotlib.patches as patches
+from matplotlib.lines import Line2D
 
 LENGTH_RASTERIZE_THRESHOLD = 20_000
 
@@ -251,10 +247,6 @@ def plot_length(
     ):
     logger = logger or log_utils.get_logger()
     outdir = Path(outdir)
-
-    logging.getLogger('fontTools').setLevel(logging.ERROR)
-    logging.getLogger('matplotlib').setLevel(logging.ERROR)
-    logging.getLogger('matplotlib.font_manager').setLevel(logging.ERROR)
 
     tel_length = pd.read_csv(length_input, sep='\t')
     data = _prepare_length_data(tel_length, config)

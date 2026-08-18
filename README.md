@@ -1,7 +1,14 @@
-# TeloXplorer
+<p align="center">
+  <img src="docs/logo.svg" alt="TeloXplorer" width="520">
+</p>
 
-[![Conda Version](https://img.shields.io/conda/vn/huihui_li/teloxplorer.svg)](https://anaconda.org/huihui_li/teloxplorer)
-[![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
+
+<p align="center">
+  <a href="https://anaconda.org/huihui_li/teloxplorer"><img src="https://img.shields.io/conda/vn/huihui_li/teloxplorer.svg" alt="Conda Version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-blue.svg" alt="License"></a>
+</p>
+
+---
 
 TeloXplorer (`telox`) is a modular framework for chromosome-end-resolved telomere analysis using long-read sequencing data (ONT and PacBio) or genome assemblies.
 
@@ -26,8 +33,8 @@ conda install -c huihui_li -c bioconda -c conda-forge teloxplorer=0.5.0
 
 > [!NOTE]
 >
-> The Bioconda release is pending review of the `telox-pyabpoa` recipe. Until
-> it is merged, keep `huihui_li` as the highest-priority channel.
+> Version 0.5.0 uses `pyabpoa` from the `huihui_li` channel. Migration to the
+> `telox-pyabpoa` package on Bioconda is pending review of its recipe.
 
 **Dependencies:** [minimap2](https://github.com/lh3/minimap2), [samtools](https://github.com/samtools/samtools), [seqtk](https://github.com/lh3/seqtk).
 
