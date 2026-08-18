@@ -1,0 +1,33 @@
+[build-system]
+requires = ["scikit-build-core>=0.5.1", "pybind11>=2.10.0"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "teloxplorer"
+version = "0.5.0"
+description = "Chromosome-end-resolved telomere analysis using long-read sequencing data (ONT and PacBio)."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Huihui Li", email = "hhui.li@outlook.com"}
+]
+dependencies = [
+    "click>=8.0",
+    "numpy",
+    "pandas",
+    "pysam>=0.19.1",
+    "regex",
+    "scipy",
+    "hdbscan",
+    "matplotlib",
+    "telox-pyabpoa==1.5.6.post1",
+    "natsort",
+    "polyleven",
+    "typer>=0.16.0"
+]
+
+[project.scripts]
+telox = "telox.cli:app"
+
+[tool.scikit-build]
+wheel.packages = ["telox"]

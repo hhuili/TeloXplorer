@@ -1,0 +1,76 @@
+# teloxplorer/meta.yaml
+
+{% set name = "teloxplorer" %}
+{% set version = "0.5.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  path: ..
+
+build:
+  number: 0
+  skip: True  # [win]
+  entry_points:
+    - telox = telox.cli:app
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - cmake
+    - make
+    - zlib
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux]
+
+  host:
+    - python >=3.10,<3.14
+    - pip
+    - scikit-build-core
+    - pybind11
+    - zlib
+    - re2
+
+  run:
+    - python >=3.10,<3.14
+    - click >=8.0
+    - numpy
+    - pandas
+    - pysam >=0.19.1
+    - regex
+    - scipy
+    - hdbscan
+    - matplotlib-base
+    - telox-pyabpoa ==1.5.6.post1
+    - natsort >=8.0.0
+    - polyleven
+    - typer >=0.16.0
+
+    - minimap2
+    - samtools
+    - seqtk
+    - re2
+
+test:
+  imports:
+    - telox
+    - telox.bloom_core
+  commands:
+    - telox --version
+    - telox --help
+
+    - telogrep --help
+    - command -v minimap2
+
+about:
+  home: https://github.com/hhuili/TeloXplorer
+  license: GPL-3.0-only
+  license_family: GPL3
+  license_file: LICENSE
+  summary: "Chromosome-end-resolved telomere analysis using long-read sequencing data (ONT and PacBio)."
+
+extra:
+  recipe-maintainers:
+    - hhuili
